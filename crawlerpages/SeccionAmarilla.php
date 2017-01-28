@@ -11,7 +11,8 @@ class SeccionAmarilla {
     public $domain          = "https://www.seccionamarilla.com.mx";
     
     public $linkCrawler     = [
-        "https://www.seccionamarilla.com.mx/resultados/restaurantes/1"
+        //"https://www.seccionamarilla.com.mx/resultados/restaurantes/1",
+        "https://www.seccionamarilla.com.mx/resultados/hoteles/1"
     ];
     
 

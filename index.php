@@ -11,7 +11,6 @@
         echo "</pre>"; exit;
     }
     dd($_SESSION["permanentData"]);
-
     $crawler = new SeccionAmarilla();
 
     $crawler->crawler(); //init page
