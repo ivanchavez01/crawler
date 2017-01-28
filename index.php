@@ -10,6 +10,7 @@
         print_r($arr);
         echo "</pre>"; exit;
     }
+    dd($_SESSION["permanentData"]);
 
     $crawler = new SeccionAmarilla();
 

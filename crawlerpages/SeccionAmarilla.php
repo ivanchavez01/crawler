@@ -59,9 +59,11 @@ class SeccionAmarilla {
 
     public function getSslPage($url) {
         $curl = curl_init();
+        $headers[] = "Cookie: ASP.NET_SessionId=pfmljjdefw0ch023tze3bq2e";
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
         curl_setopt($curl, CURLOPT_HEADER, false);
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_REFERER, $url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
