@@ -1,52 +1,44 @@
-<?php
+<?php 
 namespace CrawlerPages;
-use Sunra\PhpSimple\HtmlDomParser;
 
-class SeccionAmarilla {
-    public $visitLink       = ["#"]; //urls analizadas
+class Fragantica {
+    public $visitLink       = []; //urls analizadas
     public $links           = []; //urls por analizar
     public $crawlerCounter  = 0;
     public $business        = []; //informacion extraida
-    public $lastCounterBus  = 0;
-    public $domain          = "https://www.seccionamarilla.com.mx";
     
-    public $linkCrawler     = [
-        "https://www.seccionamarilla.com.mx/resultados/restaurantes/1",
-        //"https://www.seccionamarilla.com.mx/resultados/hoteles/1"
-    ];
-    
+    public $brands          = [];
 
+    public $lastCounterBus  = 0;
+    public $domain          = "http://www.fragrantica.es/buscar/";
+    
+    public $linkCrawler     = [];
+
+    
     public function crawler($newLink = "") {
         if($newLink == "")
             $str = $this->getSslPage($this->linkCrawler[0]);
         else 
             $str = $this->getSslPage($newLink);
 
-        $dom        = HtmlDomParser::str_get_html($str);
+        $dom     = HtmlDomParser::str_get_html($str);
         $this->getData($dom); //obtiene la informacion de la primer pagina
     }
 
     public function getData($dom) {
-        $this->analizeBusiness($dom);
-        $this->analizePagination($dom);
+        $this->analizeBrands($dom);
+        //$this->analizePagination($dom);
         $this->crawlerCounter++;
     }
     
-    public function analizeBusiness($dom) {
-        foreach($dom->find("ul.list li") as $element) {
-            $phone = $element->find(".l-tel a span");
+    public function analizeBrands($dom) {
+        foreach($dom->find("#subnav div a") as $element) {
             $data = [
                 "name"      => $element->find(".l-datos a h2 span")[0]->innertext,
-                "website"   => $element->find(".l-btn-container a")[0]->href,
-                "address"   => $element->find(".l-datos .l-address span")[0]->innertext,
-                "neibor"    => $element->find(".l-datos .l-address span")[1]->innertext,
-                "city"      => $element->find(".l-datos .l-address span")[2]->innertext,
-                "state"     => $element->find(".l-datos .l-address span")[3]->innertext,
-                "phone"     => isset($phone[0]->innertext) ? $phone[0]->innertext : "",
-                "infopage"  => $element->find(".l-datos a")[0]->href
+                "link"      => $element->find(".l-btn-container a")[0]->href,
             ];
 
-            $this->business[] = $data;
+            $this->brands[] = $data;
         }
     }
 
